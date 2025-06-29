@@ -10,7 +10,7 @@ import EventDetailModal from "./EventDetailModal";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api`;
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(moment());
