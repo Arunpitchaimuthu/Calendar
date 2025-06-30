@@ -11,7 +11,9 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 const API_BASE_URL =
-  `${process.env.REACT_APP_API_URL}api` || "http://localhost:5000/api";
+  (process.env.REACT_APP_API_URL !== undefined && process.env.REACT_APP_API_URL !== '')
+    ? `${process.env.REACT_APP_API_URL}api`
+    : "http://localhost:5000/api";
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(moment());
