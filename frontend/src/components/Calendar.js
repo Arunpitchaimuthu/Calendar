@@ -10,7 +10,8 @@ import EventDetailModal from "./EventDetailModal";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-const API_BASE_URL = `${process.env.REACT_APP_API_URL}api`;
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -58,7 +59,7 @@ const Calendar = () => {
     } catch (e) {
       console.error("Failed to fetch events:", e);
       setError(
-        "Failed to load calendar events. Please ensure the backend server is running on http://localhost:5000."
+        `Failed to load calendar events. Please ensure the backend server is running and accessible at ${API_BASE_URL}.`
       );
       showSnackbar(
         "Failed to load events. Check console for details.",
@@ -131,14 +132,24 @@ const Calendar = () => {
   const handleSaveNewEvent = async (newEvent) => {
     setIsCreateModalOpen(false);
     showSnackbar(
-      "Event created locally. Backend persistence (POST) is not active in your current server.js.",
-      "info"
+      "Event not created. (Backend persistence not yet fully implemented for POST/PUT/DELETE)",
+      "error"
     );
   };
 
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setIsDetailModalOpen(true);
+  };
+
+  const handleEditEvent = (event) => {
+    console.log("Attempting to edit event:", event);
+    showSnackbar("Edit functionality is not implemented yet.", "error");
+  };
+
+  const handleDeleteEvent = async (eventId) => {
+    console.error("Failed to delete event:", eventId);
+    showSnackbar("Delete functionality is not implemented yet.", "error");
   };
 
   const renderView = () => {
@@ -164,6 +175,8 @@ const Calendar = () => {
             selectedDate={selectedDate}
             events={events}
             onEventClick={handleEventClick}
+            onEditEvent={handleEditEvent}
+            onDeleteEvent={handleDeleteEvent}
           />
         );
       case "week":
@@ -172,6 +185,8 @@ const Calendar = () => {
             selectedDate={selectedDate}
             events={events}
             onEventClick={handleEventClick}
+            onEditEvent={handleEditEvent}
+            onDeleteEvent={handleDeleteEvent}
           />
         );
       case "day":
@@ -180,6 +195,8 @@ const Calendar = () => {
             selectedDate={selectedDate}
             events={events}
             onEventClick={handleEventClick}
+            onEditEvent={handleEditEvent}
+            onDeleteEvent={handleDeleteEvent}
           />
         );
       case "year":
@@ -202,6 +219,8 @@ const Calendar = () => {
             selectedDate={selectedDate}
             events={events}
             onEventClick={handleEventClick}
+            onEditEvent={handleEditEvent}
+            onDeleteEvent={handleDeleteEvent}
           />
         );
     }
